@@ -32,7 +32,7 @@ public class KPtestovi {
         driver.quit();
     }
 
-    private static void findDivs(WebDriver driver, String link1) {
+    	private static void findDivs(WebDriver driver, String link1) {
     	
     	WebElement parentElementSelectCategory2 = driver.findElement(By.xpath(link1));    
         
