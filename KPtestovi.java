@@ -43,10 +43,10 @@ public class KPtestovi {
         for (WebElement selectElement1 : selectElementsSelectCategory) {
             System.out.println("Select podcat element text: " + selectElement1.getText());
             System.out.println("Select1 element tag name: " + selectElement1.getTagName());
-        }        
+        }
     }
 
-    public static void testSearchCriteria(WebDriver driver) throws InterruptedException {
+	public static void testSearchCriteria(WebDriver driver) throws InterruptedException {
         
        
         driver.get("https://www.kupujemprodajem.com");
@@ -163,15 +163,15 @@ public class KPtestovi {
     	
     	dugmeAdresar.click();
     	
-    	Thread.sleep(1000);
+    	Thread.sleep(2000);
     	
     	WebElement emailForm = driver.findElement(By.id("email"));
     	emailForm.sendKeys("aleksandartasic2810@gmail.com");
-    	Thread.sleep(1000);
+    	Thread.sleep(2000);
     	
     	WebElement passwordForm = driver.findElement(By.id("password"));
     	passwordForm.sendKeys("sifra");
-    	Thread.sleep(1000);
+    	Thread.sleep(2000);
  
     }
 }
