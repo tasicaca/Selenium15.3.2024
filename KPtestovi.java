@@ -44,9 +44,9 @@ public class KPtestovi {
             System.out.println("Select podcat element text: " + selectElement1.getText());
             System.out.println("Select1 element tag name: " + selectElement1.getTagName());
         }        
-	}
+    }
 
-	public static void testSearchCriteria(WebDriver driver) throws InterruptedException {
+    public static void testSearchCriteria(WebDriver driver) throws InterruptedException {
         
        
         driver.get("https://www.kupujemprodajem.com");
