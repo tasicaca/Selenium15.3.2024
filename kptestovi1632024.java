@@ -78,13 +78,9 @@ public class KPtestovi {
         poljeZaUpis.sendKeys("Odeća | Ženska");
         Thread.sleep(2000);
         poljeZaUpis.sendKeys(Keys.ENTER); 
-        
+                
         Thread.sleep(2000);
-       
-        //poljeZaUpis.sendKeys(Keys.ENTER); 
-        
-        Thread.sleep(2000);
-        /////////////////////////////moguće je koristiti i dugme na dole//
+        /////////////////////////////moguće je koristiti i dugme ARROW DOWN//
         Actions actions = new Actions(driver);
         // key down action 85x. 
         for (int i = 0; i < 85; i++) {
