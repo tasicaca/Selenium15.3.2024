@@ -68,37 +68,32 @@ public class KPtestovi {
         parentElementSelectCategory.click();
         Thread.sleep(1000);
         
-        ///ovde mi je logika bila da nadjem xpath diva kog vidim, pa da onda nadjem njegov 3. child element sa div[2], i da onda prikazem sve njegove child elemente, to mi je i proradilo.
-        ///Stim da sam dodao jos jedan div. Pri tome sam koristio kod koji mi vraca strukturu divova, taj kod je u nastavku
-        ///sve ovo je radjeno jer ne vidim lepo divove
-        
+        ///ovde mi je logika bila da nadjem xpath diva kog vidim,  i da onda prikazem sve njegove child elemente, to mi je i proradilo.
         
         ////////////////////////////Ovo je drugi nacin, da se direktno unese u input polje//
         WebElement poljeZaUpis = driver.findElement(By.xpath("//*[@id=\"react-select-categoryId-input\"]"));
         poljeZaUpis.sendKeys("Odeća | Ženska");
         Thread.sleep(2000);
         poljeZaUpis.sendKeys(Keys.ENTER); 
-                
+        
         Thread.sleep(2000);
-        /////////////////////////////moguće je koristiti i dugme ARROW DOWN//
+        /////////////////////////////moguće je koristiti i dugme na dole//
         Actions actions = new Actions(driver);
         // key down action 85x. 
         for (int i = 0; i < 85; i++) {
             actions.keyDown(poljeZaUpis, Keys.ARROW_DOWN).perform();
         }
         poljeZaUpis.sendKeys(Keys.ENTER);
-        
+        Thread.sleep(2000);
         
         WebElement divZaBiranjeVrsteOdece = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[1]/span/div[2]/div/section/div/div[2]/div[1]"));
         divZaBiranjeVrsteOdece.click();
         Thread.sleep(2000);
         
-        ///obratiti paznju da se divovi broje posebno, a posebno span-ovi
-        
         String linkDoInputPoljaZaPodkategoriju = "/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[1]/span/div[2]/div/section/div";
         
         
-        findDivs(driver, linkDoInputPoljaZaPodkategoriju+"/div[2]/div[1]/div[1]/div[1]/div[1]/div"); //koristi se za divove koji se dinamicki menjaju
+        findDivs(driver, linkDoInputPoljaZaPodkategoriju+"/div[2]/div[1]/div[1]/div[1]/div[1]/div"); 
         
         				
         WebElement SelectSubcategory = driver.findElement(By.xpath(linkDoInputPoljaZaPodkategoriju+"/div[2]/div[1]/div[1]/div[1]/div[1]/div"));
@@ -134,7 +129,6 @@ public class KPtestovi {
         Thread.sleep(2000);///detektuje drugi trazeni element za selekciju
         
         findDivs(driver, "/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[3]/span/div[1]/div/section/div/div[2]");
-        
         /////////////////////////////dodato za trazenje child elemenata za select////////////////////////////////////////////////////
         
         WebElement buttonFinalElement = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[2]/button[2]")); // 
