@@ -31,7 +31,7 @@ public class KPtestovi {
         
         driver.quit();
     }
-
+ 
     private static void findDivs(WebDriver driver, String link1) {
     	
     	WebElement parentElementSelectCategory2 = driver.findElement(By.xpath(link1));    
@@ -111,6 +111,21 @@ public class KPtestovi {
         minPrice.sendKeys("100");
         Thread.sleep(500);
         
+        
+        String linkDoPolja = "/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[2]/span/div[1]/div[3]/section/div";
+        					//	/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[2]/span/div[1]/div[3]/section/div/div
+        
+        WebElement dugmeIzborValute = driver.findElement(By.xpath(linkDoPolja+"/div/div[2]/div"));
+        dugmeIzborValute.click();
+        Thread.sleep(2000);
+
+        findDivs(driver,linkDoPolja + "/div[2]" );
+        
+        WebElement divIzborValute = driver.findElement(By.xpath(linkDoPolja+"/div[2]/div/div"));
+		divIzborValute.click();
+		Thread.sleep(2000);
+        
+        
         WebElement cb = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[2]/span/div[2]/div[1]/span/label/span[1]"));
         cb.click();
         Thread.sleep(500);
@@ -144,9 +159,9 @@ public class KPtestovi {
         int number = Integer.parseInt(numberStr);
 
         if (number > 1000) {
-        	System.out.println("BROJ OGLASA JE VEĆI OD 1000");
+        	System.out.println("BROJ OGLASA JE VEĆI OD 1000 I TEST JE USPEŠNO OKONČAN");
         } else {
-        	System.out.println("BROJ OGLASA JE MANJI OD 1000");
+        	System.out.println("BROJ OGLASA JE MANJI OD 1000 I TEST JE USPEŠNO OKONČAN");
         }
     }
     
