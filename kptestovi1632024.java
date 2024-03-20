@@ -1,6 +1,7 @@
 package automationScripts;
 
 import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,7 +15,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 
-public class KPtestovi {
+public class KPtestsWithReport {
 
     public static void main(String[] args) throws InterruptedException {
       
@@ -23,16 +24,16 @@ public class KPtestovi {
         options.addArguments("--start-maximized");
         WebDriver driver = new ChromeDriver(options);
         
-        // Test Scenario 1: 
+        // Scenario 1: 
         testSearchCriteria(driver);
         
-        // Test Scenario 2: 
+        // Scenario 2: 
         testAddToAddressBook(driver);
         
         driver.quit();
     }
- 
-    private static void findDivs(WebDriver driver, String link1) {
+
+    private static void findDivs(WebDriver driver, String link1) { // za nalazenje divova koji se dinamički menjaju
     	
     	WebElement parentElementSelectCategory2 = driver.findElement(By.xpath(link1));    
         
@@ -47,142 +48,166 @@ public class KPtestovi {
     }
     
     public static void testSearchCriteria(WebDriver driver) throws InterruptedException {
-        
        
-        driver.get("https://www.kupujemprodajem.com");
+    	try {
+    		driver.get("https://www.kupujemprodajem.com");
 
-        WebElement button = driver.findElement(By.className("Button_children__tDTVo"));
-        //WebElement button = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[1]/div/section/section/div/span[1]/button"));
-        button.click();
-        Thread.sleep(2000);
-        
-        String link	="/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[1]/span/div[1]/div/section/div";
-        //link koji je osnova za dalji rad sa input poljem gde se bira kategorija
-        
-        WebElement button1 = driver.findElement(By.xpath(link+"/div/div[2]"));
-        button1.click();
-        
-        Thread.sleep(2000);
-        
-        WebElement parentElementSelectCategory = driver.findElement(By.xpath(link+"/div[2]/div/div/div/div[3]/div[3]"));
-        parentElementSelectCategory.click();
-        Thread.sleep(1000);
-        
-        ///ovde mi je logika bila da nadjem xpath diva kog vidim,  i da onda prikazem sve njegove child elemente, to mi je i proradilo.
-        
-        ////////////////////////////Ovo je drugi nacin, da se direktno unese u input polje//
-        WebElement poljeZaUpis = driver.findElement(By.xpath("//*[@id=\"react-select-categoryId-input\"]"));
-        poljeZaUpis.sendKeys("Odeća | Ženska");
-        Thread.sleep(2000);
-        poljeZaUpis.sendKeys(Keys.ENTER); 
-        
-        Thread.sleep(2000);
-        /////////////////////////////moguće je koristiti i dugme na dole//
-        Actions actions = new Actions(driver);
-        // key down action 85x. 
-        for (int i = 0; i < 85; i++) {
-            actions.keyDown(poljeZaUpis, Keys.ARROW_DOWN).perform();
-        }
-        poljeZaUpis.sendKeys(Keys.ENTER);
-        Thread.sleep(2000);
-        
-        WebElement divZaBiranjeVrsteOdece = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[1]/span/div[2]/div/section/div/div[2]/div[1]"));
-        divZaBiranjeVrsteOdece.click();
-        Thread.sleep(2000);
-        
-        String linkDoInputPoljaZaPodkategoriju = "/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[1]/span/div[2]/div/section/div";
-        
-        
-        findDivs(driver, linkDoInputPoljaZaPodkategoriju+"/div[2]/div[1]/div[1]/div[1]/div[1]/div"); 
-        
-        				
-        WebElement SelectSubcategory = driver.findElement(By.xpath(linkDoInputPoljaZaPodkategoriju+"/div[2]/div[1]/div[1]/div[1]/div[1]/div"));
-        SelectSubcategory.click();
-        Thread.sleep(4000);
-          
-        
-        WebElement poljeZaBluze = driver.findElement(By.xpath("//*[@id=\"react-select-groupId-input\"]"));
-        poljeZaBluze.sendKeys("Bluze");
-        Thread.sleep(2000);
-        poljeZaBluze.sendKeys(Keys.ENTER);
-        
-        Thread.sleep(500);
-        WebElement minPrice = driver.findElement(By.id("priceFrom"));
-        minPrice.sendKeys("100");
-        Thread.sleep(500);
-        
-        
-        String linkDoPolja = "/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[2]/span/div[1]/div[3]/section/div";
-        					//	/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[2]/span/div[1]/div[3]/section/div/div
-        
-        WebElement dugmeIzborValute = driver.findElement(By.xpath(linkDoPolja+"/div/div[2]/div"));
-        dugmeIzborValute.click();
-        Thread.sleep(2000);
 
-        findDivs(driver,linkDoPolja + "/div[2]" );
+    		WebElement button = driver.findElement(By.className("Button_children__tDTVo"));
+
+    		button.click();
+
+    		Thread.sleep(2000);
+
         
-        WebElement divIzborValute = driver.findElement(By.xpath(linkDoPolja+"/div[2]/div/div"));
-		divIzborValute.click();
-		Thread.sleep(2000);
-        
-        
-        WebElement cb = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[2]/span/div[2]/div[1]/span/label/span[1]"));
-        cb.click();
-        Thread.sleep(500);
-        
-        String linkSelectCondition="/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[3]/span/div[1]/div/section/div";
-        
-        WebElement sel = driver.findElement(By.xpath(linkSelectCondition+"/div[1]/div[2]"));
-        sel.click();
-        Thread.sleep(2000);
+
+    		String link	="/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[1]/span/div[1]/div/section/div";
+    		// osnova za dalji rad sa input poljem gde se bira kategorija
+
+    		WebElement button1 = driver.findElement(By.xpath(link+"/div/div[2]"));
+    		button1.click();
+
+    		Thread.sleep(2000);
+
+    		WebElement parentElementSelectCategory = driver.findElement(By.xpath(link+"/div[2]/div/div/div/div[3]/div[3]"));
+    		parentElementSelectCategory.click();
+
+    		Thread.sleep(1000);
+
+    		//Ovo je drugi nacin, da se direktno unese u input polje//
+
+    		WebElement fieldInput = driver.findElement(By.xpath("//*[@id=\"react-select-categoryId-input\"]"));
+    		fieldInput.sendKeys("Odeća | Ženska");
+    		Thread.sleep(1000);
+
+    		fieldInput.sendKeys(Keys.ENTER); 
+
+    		Thread.sleep(1000);
+
+    		// moguće je koristiti i dugme ARROW DOWN//
+
+    		Actions actions = new Actions(driver);
+
+    		for (int i = 0; i < 85; i++) {
+    			actions.keyDown(fieldInput, Keys.ARROW_DOWN).perform();
+    		}
+
+    		fieldInput.sendKeys(Keys.ENTER);
+    		Thread.sleep(2000);
+    		
+    		System.out.println("KATEGORIJA IZABRANA USPEŠNO");
+    		
+    		String linkInputSubcategory = "/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[1]/span/div[2]/div/section/div";
+
+    		WebElement divZaBiranjeVrsteOdece = driver.findElement(By.xpath(linkInputSubcategory + "/div[2]/div[1]"));
+    		divZaBiranjeVrsteOdece.click();
+    		Thread.sleep(2000);
                 
-        WebElement poljeKaoNovo = driver.findElement(By.xpath(linkSelectCondition+"/div[2]/div/div[2]"));
-        poljeKaoNovo.click();
-        Thread.sleep(2000);/// selektuje prvi element
-        WebElement poljeNovo= driver.findElement	(By.xpath(linkSelectCondition+"/div[2]/div"));
-        poljeNovo.click();
-        Thread.sleep(2000);///detektuje drugi trazeni element za selekciju
+    		//findDivs(driver, linkDoInputPoljaZaPodkategoriju+"/div[2]/div[1]/div[1]/div[1]/div[1]/div"); 
+        		
+    		WebElement SelectSubcategory = driver.findElement(By.xpath(linkInputSubcategory +"/div[2]/div[1]/div[1]/div[1]/div[1]/div"));
+    		SelectSubcategory.click();
+    		Thread.sleep(4000);
+          
+    		WebElement fieldBluze = driver.findElement(By.xpath("//*[@id=\"react-select-groupId-input\"]"));
+    		fieldBluze.sendKeys("Bluze");
+    		Thread.sleep(2000);
+    		fieldBluze.sendKeys(Keys.ENTER);
         
-        findDivs(driver, "/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[3]/span/div[1]/div/section/div/div[2]");
-        /////////////////////////////dodato za trazenje child elemenata za select////////////////////////////////////////////////////
+    		Thread.sleep(500);
+    		WebElement minPrice = driver.findElement(By.id("priceFrom"));
+    		minPrice.sendKeys("100");
+    		Thread.sleep(500);
         
-        WebElement buttonFinalElement = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[2]/button[2]")); // 
-        buttonFinalElement.click();
-        
-        Thread.sleep(5000);
-        
-        WebElement spanElement = driver.findElement(By.xpath("//*[@id=\"__next\"]/div/div[3]/div/div/div[2]/div[1]/div/div/span/div/span")); 
-        String spanText = spanElement.getText();
+    		System.out.println("POTKATEGORIJA IZABRANA USPEŠNO");
+    		
+    		String linkCurrency = "/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[2]/span/div[1]/div[3]/section/div";
+        					        
+    		WebElement dugmeValute = driver.findElement(By.xpath(linkCurrency+"/div/div[2]/div"));
+    		dugmeValute.click();
+    		Thread.sleep(2000);
 
-        // izdvajanje brojeva iz teksta
-        String numberStr = spanText.replaceAll("[^0-9]", "");
-        int number = Integer.parseInt(numberStr);
-
-        if (number > 1000) {
-        	System.out.println("BROJ OGLASA JE VEĆI OD 1000 I TEST JE USPEŠNO OKONČAN");
-        } else {
-        	System.out.println("BROJ OGLASA JE MANJI OD 1000 I TEST JE USPEŠNO OKONČAN");
-        }
+    		//findDivs(driver,linkDoPolja + "/div[2]" );
+        
+    		WebElement divValute = driver.findElement(By.xpath(linkCurrency+"/div[2]/div/div"));
+    		divValute.click();
+    		Thread.sleep(2000);
+                
+    		//checkbox samo sa cenom
+    		WebElement cb = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[2]/span/div[2]/div[1]/span/label/span[1]"));
+    		cb.click();
+    		Thread.sleep(500);
+        
+    		String linkSelectCondition="/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[3]/span/div[1]/div/section/div";
+        
+    		WebElement sel = driver.findElement(By.xpath(linkSelectCondition+"/div[1]/div[2]"));
+    		sel.click();
+    		Thread.sleep(2000);
+                
+    		WebElement KaoNovo = driver.findElement(By.xpath(linkSelectCondition+"/div[2]/div/div[2]"));
+    		KaoNovo.click();/// selektuje prvi element
+    		Thread.sleep(2000);
+    		WebElement Novo= driver.findElement	(By.xpath(linkSelectCondition+"/div[2]/div"));
+    		Novo.click();
+    		Thread.sleep(2000);///detektuje drugi trazeni element za selekciju
+    		
+    		//findDivs(driver, "/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[1]/div[3]/span/div[1]/div/section/div/div[2]");//dodato za trazenje child elemenata za select
+        
+    		WebElement buttonFinalElement = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div/div/div/div/div[2]/form/section/div/div[2]/div/div/div[2]/button[2]"));
+    		buttonFinalElement.click();
+    		
+    		System.out.println("SVI FILTERI SU IZABRANI USPEŠNO");
+    		Thread.sleep(5000);
+        
+    		WebElement spanElement = driver.findElement(By.xpath("//*[@id=\"__next\"]/div/div[3]/div/div/div[2]/div[1]/div/div/span/div/span")); 
+    		String spanText = spanElement.getText();
+    		String numberStr = spanText.replaceAll("[^0-9]", "");
+    		int number = Integer.parseInt(numberStr);
+    		
+    		if (number > 1000) {
+    			System.out.println("BROJ OGLASA JE VEĆI OD 1000");
+    		} else {
+    			System.out.println("BROJ OGLASA JE MANJI OD 1000");
+    		}
+        
+    		System.out.println("PRVI TEST JE USPEŠNO OKONČAN");
+    		
+    	}catch (Exception e) {
+    		System.out.println("PRVI TEST NIJE USPEŠNO OKONČAN");
+    	}
+        
     }
     
     public static void testAddToAddressBook(WebDriver driver) throws InterruptedException {
     	
-    	driver.get("https://www.kupujemprodajem.com/odeca-zenska/bluze/zara-bluza/oglas/164403795?filterId=4361893340");
-    	
-    	WebElement dugmeAdresar = driver.findElement(By.className("ButtonTertiary_tertiary__eFrSO"));
-    	//ovde sam koristio className jer je potpuno isto na svim prikazima, ne zavisi od oglasa
-    	
-    	dugmeAdresar.click();
-    	
-    	Thread.sleep(2000);
-    	
-    	WebElement emailForm = driver.findElement(By.id("email"));
-    	emailForm.sendKeys("aleksandartasic2810@gmail.com");
-    	Thread.sleep(2000);
-    	
-    	WebElement passwordForm = driver.findElement(By.id("password"));
-    	passwordForm.sendKeys("sifra");
-    	Thread.sleep(2000);
- 
+    	try (Scanner scanner = new Scanner(System.in)) {
+			System.out.println("url oglasa:");
+			//String urlOglasa = "https://www.kupujemprodajem.com/odeca-zenska/bluze/zara-bluza/oglas/164403795?filterId=4361893340";
+			String urlOglasa = scanner.nextLine();
+			try{
+				driver.get(urlOglasa);
+				
+				WebElement dugmeAdresar = driver.findElement(By.className("ButtonTertiary_tertiary__eFrSO"));
+				
+				dugmeAdresar.click();
+				
+				Thread.sleep(4000);
+				
+				WebElement emailForm = driver.findElement(By.id("email"));
+				emailForm.sendKeys("aleksandartasic@gmail.com");
+				Thread.sleep(2000);
+				
+				WebElement passwordForm = driver.findElement(By.id("password"));
+				passwordForm.sendKeys("sifra");
+				Thread.sleep(2000);
+				
+				WebElement dugmePrijava = driver.findElement(By.xpath("//*[@id=\"kp-portal\"]/div/div/aside/div/div/div[2]/main/div[2]/form/button"));
+				dugmePrijava.click();
+				
+				System.out.println("DRUGI TEST JE USPEŠNO OKONČAN");
+			}catch (Exception e) {
+				System.out.println("DRUGI TEST NIJE USPEŠNO OKONČAN");
+			}
+		}
     }
 }
