@@ -1,3 +1,3 @@
-# Selenium15.3.2024.
+# Selenium/Java testing
 
 
